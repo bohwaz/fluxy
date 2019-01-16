@@ -1,0 +1,22 @@
+# Fluxy - Serveur tcp/udp libre pour la gestion de newsfeeds
+
+Fluxy a été originalement écrit pour la plate-forme de blogs Skyrock.com et permet de gérer les newsfeed de 20 millions d'utilisateurs sur une simple paire de machines (active/passive) depuis décembre 2009.
+
+Fluxy est distribué sous licence GPLv3.
+
+## Dépendances
+
+Pour compiler Fluxy vous aurez besoin des bibliothèques suivantes :
+
+* Libevent
+* glib-2.0
+
+## Installation
+
+Comme d'habitude, à partir de la racine de l'archive décompressée :
+
+```
+./configure
+make
+sudo make install
+```
