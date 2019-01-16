@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
+
+<head>
+<title>Fluxy serveur tcp/udp pour la génération de Newsfeeds</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+        <link rel="stylesheet" type="text/css" media="screen, projection, print" href="styles.css" />
+
+</head>
+<body>
+
+<div class="corps">
+
+<div class="bloc">
+
+    <img src="logo.png" alt="Logo Fluxy" class="logo" />
+
+    <div class="accroche">
+        <p><b>Fluxy</b> est un serveur tcp/udp en C++ et basé sur la bibliothèque <a href='http://www.monkey.org/~provos/libevent/'><b>Libevent</b></a> qui permet la génération de flux d'actualités (newsfeeds) pour les réseaux sociaux.</p>
+    </div>
+
+    <h1><b>Fluxy</b> - Serveur tcp/udp libre pour la gestion de newsfeeds</h1>
+    
+    <p><b>Fluxy</b> a été originalement écrit pour la plate-forme de blogs <a href='http://skyrock.com'><b>Skyrock.com</b></a> et permet de gérer les newsfeed de 20 millions d'utilisateurs sur une simple paire de machines (active/passive) depuis décembre 2009.</p>
+    <p><b>Fluxy</b> est distribué sous licence <a href='http://gplv3.fsf.org/'>GPLv3</a>.</p>
+
+
+   <h2>Documentation</h2>
+    <ul>
+        <li><a href='man.html'>Page de manuel (anglais)</a></li>
+    </ul>    
+    <h2>Téléchargement</h2>
+    <ul>
+        <li>Vous pouvez télécharger les <a href='download/index.html'>sources de la dernière version de <b>Fluxy</b></a></li>
+    </ul>
+<img src="rat-plombier.png" alt="rat plombier" class="floatright" />
+
+    <h2>Dépendances</h2>
+    <p>
+    Pour compiler <b>Fluxy</b> vous aurez besoin des bibliothèques suivantes :
+    </p>
+    <ul>
+    <li>Libevent</li>
+    <li>glib-2.0</li>
+    </ul>
+
+    <h2>Installation</h2>
+    <p>Comme d'habitude, à partir de la racine de l'archive décompressée :</p>
+<pre>
+./configure
+make
+<i>sudo</i> make install
+</pre>
+
+    <h2>Paquet Debian</h2>
+    <p>
+    Vous trouverez un paquet Debian source, ainsi qu'un paquet binaires pour amd64 à <a href='http://backports.skyrock.com/pool/main/f/fluxy/'>cette adresse</a>.
+    </p>
+<p>
+Il est possible d'utiliser la commande <code>dget</code> pour récupérer le paquet Debian source :
+</p>
+<pre>
+dget -x -u http://backports.skyrock.com/pool/main/f/fluxy/fluxy_0.19-2orbuslenny0.dsc
+</pre>
+
+</div>
+
+<div class="bloc">
+    <h2>Fonctionnement</h2>
+<img src="rat-prof.png" alt="Rat prof" class="floatright" />
+    <h3>Généralités</h3>
+    <p><b>Fluxy</b> permet, pour chaque utilisateur, de maintenir en RAM un buffer contenant une liste <a href='http://fr.wikipedia.org/wiki/First_in,_first_out'>FIFO</a> d'événements (avec une taille maximale d'événements).<br />
+    Chaque événement est composé de différents champs (id, date, flags, type, version, body).<br />
+    Lors de l'insertion d'un nouvel événement, si le nombre d'événements maximal est atteint, les plus vieux messages sont supprimés.</p>
+    <p>Les événements ont une durée de vie limitée et sont supprimées automatiquement au bout d'une période donnée, libérant ainsi de la mémoire.</p>
+    <p>Il est possible de récupérer la liste des événements d'un utilisateur donné, ou bien d'agréger les événements d'une liste d'utilisateurs (fonction utilisée pour la génération du newsfeed lui même).<br />
+    L'agrégation ne renvoie qu'un nombre limité d'événements classés par ordre chronologique. Il est possible de fournir un filtre binaire afin de limiter l'agrégation à un certain type d'événements.</p>
+
+    <p><b>Fluxy</b> travaille exclusivement en RAM mais exporte régulièrement l'ensemble de ses données dans un fichier (par exemple, toutes les 6h). Les données sont également sauvegardées lors de l'arrêt du serveur.<br />
+    Les buffers (de 128, 256, 512 octets etc...) libérés au cours de l'exécution de <b>Fluxy</b> sont mis de côté (ne sont pas détruits) pour être réutilisés en priorité lorsque le serveur va avoir besoin d'allouer de la mémoire.<br />
+    De cette façon, la mémoire ne se fragmente jamais.</p>
+
+
+    <p><b>Fluxy</b> possède deux interfaces:</p> 
+    <ul>
+        <li>Une interface udp pour les écritures seulement</li>
+        <li>Une interface tcp pour les lectures/écritures</li>
+    </ul>
+
+    <p>Les données renvoyées par <b>Fluxy</b>, sont, en général, renvoyées au format <a href='http://php.net/manual/fr/function.serialize.php'>php serialize</a>.</p>
+
+    <h3>Syntaxe des requètes</h3>
+    <p><i class="highlight">à rédiger</i></p>
+
+    <h3>Utilisation en PHP</h3>
+    <p>Il est possible d'utiliser l'extension PHP "Topy" qui permet de gérer un pool de connexions persistantes. De plus l'extension "Topy" permet de desérialiser automatiquement les informations retournées par le serveur.</p>
+    <p>Voici un petit exemple de script écrit en PHP utilisant l'extension Topy pour communiquer avec <b>Fluxy</b> :</p>
+<pre>
+<b>&lt;?php</b>
+$handle <b>=</b> topy_connect<b>(</b><i>"localhost"</i><b>,</b> <i>"8888"</i><b>)</b>;
+<b>if (!</b>$handle<b>) die(</b><i>"Could not connect to Fluxy Server!\n"</i><b>);</b>
+$result <b>=</b> topy_query<b>(</b><i>"stats"</i><b>);</b>
+<b>var_dump(</b>$result<b>);</b>
+<b>?></b>
+</pre>
+
+    <h3>Monitoring</h3>
+    <p><b>Fluxy</b> est distribué avec un plugin <a href='http://fr.wikipedia.org/wiki/Munin_(Surveillance_syst%C3%A8me_et_r%C3%A9seau)'>Munin</a> qui permet de grapher les informations suivantes :</p>
+    <ul>
+        <li>Fréquence des différentes requêtes exécutées par le serveur</li>
+        <li>Fréquence des événements ajoutés par type d'événement</li>
+        <li>Nombre d'utilisateurs total</li>
+        <li>Nombre d'utilisateurs par taille de buffer</li>
+        <li>Nombre d'utilisateurs par nombre d'événements</li>
+        <li>Nombre de buffers disponibles dans le recycler par taille de buffer</li>
+    </ul>
+</div>
+</div>
+
+<div class="footer">
+    <div class="bloc">
+        <h2>Auteur</h2>
+        <p><b>Fluxy</b> est un logiciel écrit par <b>Nicolas Vion</b>. Vous pouvez me joindre par <a href='http://fr.wikipedia.org/wiki/Internet_Relay_Chat'>irc</a> sur le réseau FreeNode (pseudo: <b>zMoo</b>).</p>
+        </div>
+
+  <div class="bloc">
+        <h2>Remerciements</h2>
+        <p>Je tiens à remercier la <a href='http://devteam.skyrock.com'>devteam de Skyrock</a>, et en particulier :</p>
+        <ul>
+            <li><a href='http://www.pureftpd.org/project/pure-ftpd'>Frank Denis</a> pour ses conseils éclairés</li>
+            <li><b>Julien Dehee</b> pour ses suggestions d'améliorations</li>
+            <li><b>Marion Masson</b> pour son merveilleux travail sur le graphisme de ce site (logo, mascottes, CSS) et son enthousiasme</li>
+        </ul>
+    </div>
+
+</div>
+</body>
+</html>

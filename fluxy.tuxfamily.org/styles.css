@@ -1,0 +1,123 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    background: #656593;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #fff;
+    margin: 0 1em;
+    padding: 0 0 0.2em;
+    color: #4B4B6D;
+    font-size: 13px;
+    border: 1px solid #4B4B6D;
+    font-family: "URW Gothic L",Helvetica,Verdana;
+    position: relative;
+    max-width: 1140px;
+    overflow: auto;
+}
+
+.logo {
+    float: left;
+    margin: 0 1em 15px;
+}
+
+ul {
+   list-style: inside disc;
+}
+
+p {
+    text-align: justify;
+    padding: 0.5em 0 0;
+}
+
+a, h2, h3, h1, h4, h5, h6 {
+    color: #3B599F;
+}
+
+h1 {
+    padding: 0.3em 0 0.5em;
+}
+h2 {
+    padding: 0.5em 0 0;
+}
+
+h3, h4 {
+    padding: 0.3em 0 0;
+}
+
+.bloc, h1 {
+    width: 515px;
+    float: left;
+    margin-right: 40px;
+}
+pre, .accroche {
+    background: #C6C6DE;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: 1px solid #4B4B6D;
+    padding: 0.2em 1em 0.4em;
+}
+
+pre {
+    margin: 0.2em 0;
+    font-family: monospace;
+}
+
+.accroche {
+    position: absolute;
+    left: 9px;
+    top: 210px;
+    width: 358px;
+    margin: 0;
+}
+
+.infos {
+    width: 40%;
+    float: left;
+    min-width: 520px;
+    padding: 0 10px 0 0;
+}
+
+.fonctionnement {
+    float: left;
+}
+
+.corps {
+    margin: 1em;
+}
+.footer {
+    clear: both;
+    margin-top: 10px;
+    overflow: hidden;
+    background: #C6C6DE;
+    padding: 10px;
+}
+.footer a, .footer h3, .footer h2 {
+    color: #fff;
+}
+
+.floatright {
+    float: right;
+}
+
+.floatleft {
+    float: left;
+}
+
+.floatright img {
+    margin-left: 0.2em;
+}
+
+.floatleft img {
+    margin-right: 0.2em;
+}
+
+.highlight {
+    color: red;
+}
