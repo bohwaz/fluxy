@@ -1,0 +1,32 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Format: 1.0
+Source: fluxy
+Binary: fluxy
+Architecture: any
+Version: 2.7-1
+Maintainer: Nicolas Vion <nico@yojik.eu>
+Standards-Version: 3.7.2
+Build-Depends: debhelper (>= 5), autotools-dev, libevent-dev, zlib1g-dev
+Checksums-Sha1: 
+ ea06b688ec57c8c723a55e4554567695f7d1ab42 132169 fluxy_2.7.orig.tar.gz
+ c01e413ba518ee8c84a1dfb9f36e8677fb0a8bc8 3834 fluxy_2.7-1.diff.gz
+Checksums-Sha256: 
+ 8b3661c241cd0c0c5acf4a2b98cbe49507c421da020065325f320c365ab1a31b 132169 fluxy_2.7.orig.tar.gz
+ da218b41bdd5635b4a78a1f35c143d0db72fca54f54d472e12eca5808493ec68 3834 fluxy_2.7-1.diff.gz
+Files: 
+ b29aed187078025a943678e70f146768 132169 fluxy_2.7.orig.tar.gz
+ 9c3ab39888ee3a50781d2245d1986aeb 3834 fluxy_2.7-1.diff.gz
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.9 (GNU/Linux)
+
+iQEcBAEBAgAGBQJOX6VgAAoJED9EGF6GJqQMNDAH/iwQZG+3mVDt07iQGuYLAtq3
+tnGple/LfefITjCkO9up1MF0OivdaFdR+PNMO0Tp1RhGIfNPARCGPmcxksYB5Vry
+WPgD6GSGtc+1coTmFoLcuAOYXTN81wpHcqUw5VUJRSebDSSxo/Ar6hi6J4aQyrcY
+0n9dAim4i5vLYjEvZcAfZuP4QAbrEMl/DoooNltkuwvu+qNhK8uxWd5cQ/7gUjSF
+oCeWxxRD37i++TkNnA2MmFUkhtK5bif0g938k9N7KMd5pDADMWU04YmTzyvc6S6v
+e3evfJEC71JckQ77Npf5H4odRBemMbuJvpPSaYE8qeg7yA2JrvXFvzItD89HXxo=
+=O5jl
+-----END PGP SIGNATURE-----
